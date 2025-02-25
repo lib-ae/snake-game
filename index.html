@@ -5,32 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>贪吃蛇小游戏</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="game-container">
         <div class="game-header">
             <h1>贪吃蛇小游戏</h1>
-            <div class="score-container">分数: <span id="score">0</span></div>
+            <div class="score-container">
+                <div class="score-item">分数: <span id="score">0</span></div>
+                <div class="score-item">最高分: <span id="high-score">0</span></div>
+                <div class="score-item">关卡: <span id="level">1</span></div>
+            </div>
+        </div>
+        
+        <div class="notifications" id="notifications">
+            <!-- 通知消息会在这里显示 -->
         </div>
         
         <canvas id="game-canvas"></canvas>
         
         <div class="controls">
             <div class="control-row">
-                <button id="up-btn">↑</button>
+                <button id="up-btn"><i class="fas fa-chevron-up"></i></button>
             </div>
             <div class="control-row">
-                <button id="left-btn">←</button>
-                <button id="right-btn">→</button>
+                <button id="left-btn"><i class="fas fa-chevron-left"></i></button>
+                <button id="pause-btn"><i class="fas fa-pause"></i></button>
+                <button id="right-btn"><i class="fas fa-chevron-right"></i></button>
             </div>
             <div class="control-row">
-                <button id="down-btn">↓</button>
+                <button id="down-btn"><i class="fas fa-chevron-down"></i></button>
             </div>
         </div>
         
         <div class="game-footer">
-            <button id="start-btn">开始游戏</button>
-            <button id="restart-btn" style="display: none;">重新开始</button>
+            <button id="start-btn"><i class="fas fa-play"></i> 开始游戏</button>
+            <button id="restart-btn" style="display: none;"><i class="fas fa-redo"></i> 重新开始</button>
+            <button id="help-btn"><i class="fas fa-question"></i> 游戏说明</button>
+        </div>
+        
+        <!-- 游戏结束覆盖层 -->
+        <div id="game-over-overlay" class="game-overlay">
+            <div class="game-over-text">游戏结束</div>
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span>得分:</span>
+                    <span id="final-score" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span>最高分:</span>
+                    <span id="final-high-score" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span>达到关卡:</span>
+                    <span id="final-level" class="stat-value">1</span>
+                </div>
+            </div>
+            <button id="play-again-btn"><i class="fas fa-play"></i> 再玩一次</button>
+        </div>
+        
+        <div id="game-help" class="game-help">
+            <div class="help-content">
+                <h2>游戏说明</h2>
+                <p>使用方向键或滑动屏幕控制蛇的移动。</p>
+                <h3>食物类型:</h3>
+                <ul>
+                    <li><span class="food-red">■</span> 普通食物: 10分</li>
+                    <li><span class="food-yellow">■</span> 奖励食物: 20分 (时限5秒)</li>
+                    <li><span class="food-purple">■</span> 特殊食物: 30分 (时限5秒)</li>
+                </ul>
+                <h3>道具类型:</h3>
+                <ul>
+                    <li><span class="item-blue"><i class="fas fa-bolt"></i></span> 加速: 短时间内蛇加速移动</li>
+                    <li><span class="item-green"><i class="fas fa-shield-alt"></i></span> 无敌: 短时间内可穿墙和穿过自身</li>
+                    <li><span class="item-orange"><i class="fas fa-cut"></i></span> 变短: 蛇身立即减半</li>
+                </ul>
+                <h3>关卡系统:</h3>
+                <p>每得100分升级一次，关卡越高难度越大，障碍物增加。</p>
+                <button id="close-help"><i class="fas fa-times"></i> 关闭</button>
+            </div>
         </div>
     </div>
     
